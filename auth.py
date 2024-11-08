@@ -22,8 +22,10 @@ class EKSClient:
         return clusters
 
     def authenticate_eks_cluster(self, cluster_name) -> None:
+        alias = cluster_name.split('/')[-1]
         commands = ['aws', 'eks', 'update-kubeconfig',
             '--name', cluster_name,
+            '--alias', alias,
             '--region', self.region,
             '--profile', self.profile_name]
         if(self.dry_run):
